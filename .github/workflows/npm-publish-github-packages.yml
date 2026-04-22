@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ] # или master, если у тебя так называется главная ветка
+    branches: [ main ] # Если твоя ветка называется master, замени main на master
 
 permissions:
   contents: write
@@ -19,10 +19,11 @@ jobs:
           npm install
           npm run build
         env:
-          # Здесь мы передаем API ключ для работы аудита кода
-          VITE_GEMINI_API_KEY: ${{ AIzaSyBjgiImbbRq0aXfGd9xLeZBzP5x4zIvs-0 }}
+          # Передаем твой ключ как строку в кавычках (без знака $)
+          GEMINI_API_KEY: "AIzaSyBjgiImbbRq0aXfGd9xLeZBzP5x4zIvs-0"
+          VITE_GEMINI_API_KEY: "AIzaSyBjgiImbbRq0aXfGd9xLeZBzP5x4zIvs-0"
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist # папка, которую создал Vite
+          folder: dist # Папка, которую создает Vite после сборки
