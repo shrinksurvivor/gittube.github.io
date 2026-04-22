@@ -1,8 +1,17 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY as string });
+const aiKey = process.env.GEMINI_API_KEY as string;
+const ai = aiKey ? new GoogleGenAI({ apiKey: aiKey }) : null;
 
 export async function auditCode(code: string, filename: string) {
+  if (!ai) {
+    return {
+      status: "warning",
+      score: 50,
+      findings: ["AI Auditor not configured correctly (missing API Key)."],
+      summary: "Please ensure GEMINI_API_KEY is set in your environment variables."
+    };
+  }
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3.1-pro-preview",

@@ -5,11 +5,15 @@ import {defineConfig, loadEnv} from 'vite';
 
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
+  // Using the repository name from the URL in your screenshot
+  const base = '/gittube.github.io/';
+  
   return {
-    base: './',
+    base: base,
     plugins: [react(), tailwindcss()],
     define: {
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+      // Ensure the key is picked up from shell environment (GitHub Actions) or .env file
+      'process.env.GEMINI_API_KEY': JSON.stringify(process.env.VITE_GEMINI_API_KEY || env.GEMINI_API_KEY || ""),
     },
     resolve: {
       alias: {
