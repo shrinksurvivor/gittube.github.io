@@ -18,19 +18,25 @@ export default function App() {
     <Router>
       <AuthProvider>
         <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/repo/:id" element={<RepositoryDetails />} />
-            <Route path="/upload" element={<Upload />} />
-            <Route path="/auditor" element={<StandardAuditor />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/profile/:uid" element={<Profile />} />
-          </Routes>
+          {/* We wrap routes in a div for potential styling or debugging */}
+          <div className="app-container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/repo/:id" element={<RepositoryDetails />} />
+              <Route path="/upload" element={<Upload />} />
+              <Route path="/auditor" element={<StandardAuditor />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/profile/:uid" element={<Profile />} />
+              {/* Catch-all to redirect to home if route is wrong */}
+              <Route path="*" element={<Home />} />
+            </Routes>
+          </div>
         </Layout>
       </AuthProvider>
     </Router>
   );
 }
+
 
 
 
