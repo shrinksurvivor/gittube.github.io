@@ -1,0 +1,95 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Public profile information for a developer.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "bio": { "type": "string" },
+        "githubUrl": { "type": "string" },
+        "stats": {
+          "type": "object",
+          "properties": {
+            "repos": { "type": "number" },
+            "followers": { "type": "number" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Repository": {
+      "title": "Developer Repository",
+      "description": "A collection of code, snippets, or assets shared by a user.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "techStack": { "type": "array", "items": { "type": "string" } },
+        "code": { "type": "string" },
+        "type": { "enum": ["snippet", "repo", "asset"] },
+        "stars": { "type": "number" },
+        "isAudited": { "type": "boolean" },
+        "auditStatus": { "enum": ["pending", "safe", "warning", "dangerous"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerId", "title", "type"]
+    },
+    "SecurityAudit": {
+      "title": "Security Audit Result",
+      "description": "AI-generated security analysis of a repository.",
+      "type": "object",
+      "properties": {
+        "repoId": { "type": "string" },
+        "auditorId": { "type": "string" },
+        "findings": { "type": "array", "items": { "type": "string" } },
+        "score": { "type": "number" },
+        "status": { "enum": ["safe", "warning", "dangerous"] },
+        "summary": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["repoId", "status"]
+    },
+    "Post": {
+      "title": "Forum Post",
+      "description": "A discussion topic in the developer community.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "authorId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "likes": { "type": "number" },
+        "commentCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["authorId", "title", "content"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles."
+    },
+    "/repositories/{repoId}": {
+      "schema": "Repository",
+      "description": "Shared code and assets."
+    },
+    "/repositories/{repoId}/audits/{auditId}": {
+      "schema": "SecurityAudit",
+      "description": "Security audits for a repository."
+    },
+    "/posts/{postId}": {
+      "schema": "Post",
+      "description": "Community forum posts."
+    }
+  }
+}

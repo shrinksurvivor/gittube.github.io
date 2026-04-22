@@ -1,0 +1,6 @@
+{
+  "name": "GitTube",
+  "description": "A modern social platform for developers to share code, repositories, and assets with AI-powered security audits.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["AI-powered code security audit", "Repository sharing", "Social interaction", "Code highlighting"]
+}
