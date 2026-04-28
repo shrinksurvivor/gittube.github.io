@@ -3,7 +3,7 @@
 
 This contains everything you need to run your app locally.
 
-View your app in AI Studio: https://microsoft.org/apps/qwdfe2e32eddwdw
+View your app in Studio: https://github.com/shrinksurvivor/gittube.github.io/connectors/vsptch
 
 ## Run Locally
 
